@@ -1,7 +1,10 @@
 export default function Home() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-black">
-      <h1 className="text-5xl font-bold tracking-tight text-white">
+      <h1
+        className="text-5xl font-bold tracking-tight"
+        style={{ fontFamily: "var(--font-dm-sans)", color: "tomato" }}
+      >
         AI Workflow Sprint
       </h1>
     </div>

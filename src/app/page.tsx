@@ -1,12 +1,19 @@
+import HeroSection from "@/components/HeroSection";
+import InfoSection from "@/components/InfoSection";
+import AboutSection from "@/components/AboutSection";
+import SplashImage from "@/components/SplashImage";
+import ServicesSection from "@/components/ServicesSection";
+import ProjectsSection from "@/components/ProjectsSection";
+
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-black">
-      <h1
-        className="text-5xl font-bold tracking-tight"
-        style={{ fontFamily: "var(--font-dm-sans)", color: "tomato" }}
-      >
-        AI Workflow Sprint
-      </h1>
-    </div>
+    <main>
+      <HeroSection />
+      <InfoSection />
+      <AboutSection />
+      <SplashImage />
+      <ServicesSection />
+      <ProjectsSection />
+    </main>
   );
 }

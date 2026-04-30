@@ -1,16 +1,15 @@
 const MONO = "var(--font-geist-mono, monospace)";
 const INTER = "var(--font-inter, sans-serif)";
 
-// Figma MCP assets — replace with permanent URLs before shipping
-const IMG_SURFERS   = "https://www.figma.com/api/mcp/asset/1b018d12-7123-4263-a2e7-46ba664d6225";
-const IMG_CYBERPUNK = "https://www.figma.com/api/mcp/asset/c406b020-f88f-4dbd-8775-e4ff9d6f284e";
-const IMG_AGENCY    = "https://www.figma.com/api/mcp/asset/9380bafe-771c-4929-b0d1-d3c64a82dc80";
-const IMG_MINIMAL   = "https://www.figma.com/api/mcp/asset/811fdc27-f938-4158-8b56-dff13f64c983";
-const ARROW         = "https://www.figma.com/api/mcp/asset/0ca9beb3-0bb7-49c8-bf69-0bf4c05c960a";
-const C_TL          = "https://www.figma.com/api/mcp/asset/57b1bc30-e45c-4996-8b24-c35060da53a9";
-const C_BL          = "https://www.figma.com/api/mcp/asset/3bf2aa0b-d27b-405d-a76a-90823c00951a";
-const C_TR          = "https://www.figma.com/api/mcp/asset/5350c6b9-b738-439a-8e01-d51cb368eecf";
-const C_BR          = "https://www.figma.com/api/mcp/asset/c1844aff-361f-443b-8e87-18285ff29707";
+const IMG_SURFERS   = "/images/projects_surfers-paradise.png";
+const IMG_CYBERPUNK = "/images/projects_cyberpunk-cafe.png";
+const IMG_AGENCY    = "/images/projects_agency-976.png";
+const IMG_MINIMAL   = "/images/projects_minimal-playground.png";
+const ARROW         = "/images/projects_arrow.svg";
+const C_TL          = "/images/corner-bracket_TL.svg";
+const C_BL          = "/images/corner-bracket_BL.svg";
+const C_TR          = "/images/corner-bracket_TR.svg";
+const C_BR          = "/images/corner-bracket_BR.svg";
 
 const PROJECTS = [
   { title: "Surfers paradise",   tags: ["Social Media", "Photography"], img: IMG_SURFERS,   desktopH: 744 },
@@ -72,7 +71,7 @@ function ProjectCard({
         >
           {title}
         </p>
-        <div className="relative size-8 shrink-0 -rotate-90">
+        <div className="relative size-5 shrink-0">
           <img alt="" src={ARROW} className="absolute inset-0 size-full block" />
         </div>
       </div>
@@ -108,7 +107,7 @@ function MobileProjectCard({
         >
           {title}
         </p>
-        <div className="relative size-8 shrink-0 -rotate-90">
+        <div className="relative size-5 shrink-0">
           <img alt="" src={ARROW} className="absolute inset-0 size-full block" />
         </div>
       </div>

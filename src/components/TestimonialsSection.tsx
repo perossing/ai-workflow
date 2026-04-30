@@ -1,10 +1,9 @@
 const INTER = "var(--font-inter, sans-serif)";
 
-// Figma MCP assets — replace with permanent client logo URLs before shipping
-const LOGO_MARKO = "https://www.figma.com/api/mcp/asset/c8186e23-1486-43fb-b8d6-0a17c8af0d4f";
-const LOGO_LUKAS = "https://www.figma.com/api/mcp/asset/ce107ce4-c107-490b-bbc3-1e3ac2ef6256";
-const LOGO_SARAH = "https://www.figma.com/api/mcp/asset/cd1167e0-20cc-4ddd-bc08-cabdd7f307cc";
-const LOGO_SOFIA = "https://www.figma.com/api/mcp/asset/a68174a7-6130-4069-9dae-f87dd6a75f85";
+const LOGO_MARKO = "/images/testimonials-logo_stojkovic.png";
+const LOGO_LUKAS = "/images/testimonials-logo_weber.png";
+const LOGO_SARAH = "/images/testimonials-logo_jenkins.png";
+const LOGO_SOFIA = "/images/testimonials-logo_martinez.png";
 
 interface TestimonialData {
   logo: string;

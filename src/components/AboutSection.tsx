@@ -1,12 +1,11 @@
 const MONO = "var(--font-geist-mono, monospace)";
 const INTER = "var(--font-inter, sans-serif)";
 
-// Figma MCP assets — replace with permanent URLs before shipping
-const ABOUT_IMAGE = "https://www.figma.com/api/mcp/asset/30fb652f-8b3f-49bf-b88c-4e376d105593";
-const C_TL = "https://www.figma.com/api/mcp/asset/9ef91f98-f02d-45a9-90bf-f4d6956dc8ca";
-const C_BL = "https://www.figma.com/api/mcp/asset/9669e25a-59bb-4967-93a7-3736d7fc52ce";
-const C_TR = "https://www.figma.com/api/mcp/asset/17d988a0-8fd0-428c-bc02-2cd27bcd1cbf";
-const C_BR = "https://www.figma.com/api/mcp/asset/2c674399-2c0e-4f46-adf0-e4e22cfe128d";
+const ABOUT_IMAGE = "/images/image 26.png";
+const C_TL = "/images/corner-bracket_TL.svg";
+const C_BL = "/images/corner-bracket_BL.svg";
+const C_TR = "/images/corner-bracket_TR.svg";
+const C_BR = "/images/corner-bracket_BR.svg";
 
 const BODY_TEXT =
   "Placeholder paragraph one. This is where you introduce yourself — your background, your passion for your craft, and what drives you creatively. Two to three sentences work best here. Placeholder paragraph two. Here you can describe your technical approach, how you collaborate with clients, or what sets your work apart from others in your field.";

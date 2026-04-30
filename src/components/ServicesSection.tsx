@@ -1,11 +1,10 @@
 const MONO = "var(--font-geist-mono, monospace)";
 const INTER = "var(--font-inter, sans-serif)";
 
-// Figma MCP assets — replace with permanent URLs before shipping
-const IMG_1 = "https://www.figma.com/api/mcp/asset/0e1e4c37-f681-42ea-97be-d3d889f98c09";
-const IMG_2 = "https://www.figma.com/api/mcp/asset/304c5c07-8129-4769-864c-60e54fd8adac";
-const IMG_3 = "https://www.figma.com/api/mcp/asset/205450b9-8df0-4d54-a52b-feece11bedfc";
-const IMG_4 = "https://www.figma.com/api/mcp/asset/b6c0dddc-b14f-4589-9332-192056b57997";
+const IMG_1 = "/images/brand-discovery.png";
+const IMG_2 = "/images/web-design-dev.png";
+const IMG_3 = "/images/marketing.png";
+const IMG_4 = "/images/photography.png";
 
 const DESCRIPTION =
   "Placeholder description of this service. Explain the value you provide and the outcomes clients can expect. Keep it to two or three sentences.";

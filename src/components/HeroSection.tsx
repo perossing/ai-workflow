@@ -3,9 +3,7 @@
 import { useState } from "react";
 import { Fragment } from "react";
 
-// Figma MCP asset — expires in 7 days; replace with a permanent hosted image
-const HERO_IMAGE =
-  "https://www.figma.com/api/mcp/asset/41e0c19a-3e50-40c6-968e-203f4232821b";
+const HERO_IMAGE = "/images/pexels-vazhnik-7562188 2.png";
 
 const NAV_LINKS = ["About", "Services", "Projects", "News", "Contact"];
 

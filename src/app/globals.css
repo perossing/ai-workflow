@@ -25,8 +25,8 @@ body {
    subject fills the frame horizontally as in the reference design. */
 @media (min-width: 1000px) {
   .hero-bg {
-    width: max(2800px, 190vw);
-    height: max(1300px, 135vh);
+    width: max(2576px, 174.8vw);
+    height: max(1196px, 124.2vh);
     inset: auto;
     top: 50%;
     left: 50%;

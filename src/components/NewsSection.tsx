@@ -2,11 +2,10 @@ import { Fragment } from 'react';
 
 const INTER = "var(--font-inter, sans-serif)";
 
-// Figma MCP assets — replace with permanent URLs before shipping
-const IMG_1 = "https://www.figma.com/api/mcp/asset/c68c5354-2dae-4d53-b1e4-5695142dfb72";
-const IMG_2 = "https://www.figma.com/api/mcp/asset/08027e05-71cd-4f70-a043-2f8115d694a1";
-const IMG_3 = "https://www.figma.com/api/mcp/asset/273fcc4c-ab53-4c6b-b8cb-c58895ac862d";
-const ARROW = "https://www.figma.com/api/mcp/asset/a59500b1-3081-4c75-9659-67145c61a5fb";
+const IMG_1 = "/images/news-1.png";
+const IMG_2 = "/images/news-2.png";
+const IMG_3 = "/images/news-3.png";
+const ARROW = "/images/news_arrow.svg";
 
 const NEWS = [
   {
@@ -44,7 +43,7 @@ function ReadMore({ href }: { href: string }) {
       >
         Read more
       </span>
-      <div className="relative shrink-0 size-[18px] -rotate-90">
+      <div className="relative shrink-0 size-[12px]">
         <img alt="" className="absolute block inset-0 max-w-none size-full" src={ARROW} />
       </div>
     </a>

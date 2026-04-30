@@ -6,7 +6,7 @@ export default function SplashImage() {
         md:h-[55vw] md:max-h-[900px] md:min-h-[400px]"
     >
       <img
-        src="/splash-image.png"
+        src="/images/splash image.png"
         alt=""
         role="presentation"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none

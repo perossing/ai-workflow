@@ -1,22 +1,28 @@
+import { client } from "@/sanity/client";
+import { urlFor } from "@/sanity/image";
+
 const MONO = "var(--font-geist-mono, monospace)";
 const INTER = "var(--font-inter, sans-serif)";
 
-const IMG_1 = "/images/brand-discovery.png";
-const IMG_2 = "/images/web-design-dev.png";
-const IMG_3 = "/images/marketing.png";
-const IMG_4 = "/images/photography.png";
+const SERVICES_QUERY = `*[_type == "service"] | order(order asc) {
+  _id,
+  name,
+  description,
+  image,
+  cropVertical,
+}`;
 
-const DESCRIPTION =
-  "Placeholder description of this service. Explain the value you provide and the outcomes clients can expect. Keep it to two or three sentences.";
+type Service = {
+  _id: string;
+  name: string;
+  description: string;
+  image: object | null;
+  cropVertical: boolean;
+};
 
-const SERVICES = [
-  { num: "[ 1 ]", name: "Brand Discovery",    img: IMG_1, crop: false },
-  { num: "[ 2 ]", name: "Web design & Dev",   img: IMG_2, crop: false },
-  { num: "[ 3 ]", name: "Marketing",          img: IMG_3, crop: false },
-  { num: "[ 4 ]", name: "Photography",        img: IMG_4, crop: true  },
-];
+export default async function ServicesSection() {
+  const services: Service[] = await client.fetch(SERVICES_QUERY) ?? [];
 
-export default function ServicesSection() {
   return (
     <section
       id="services"
@@ -32,7 +38,7 @@ export default function ServicesSection() {
         [ services ]
       </p>
 
-      {/* [4]  ···  Deliverables */}
+      {/* [n]  ···  Deliverables */}
       <div
         className="flex items-center justify-between w-full text-white uppercase whitespace-nowrap font-light"
         style={{
@@ -42,21 +48,21 @@ export default function ServicesSection() {
           lineHeight: "normal",
         }}
       >
-        <span>[4]</span>
+        <span>[{services.length}]</span>
         <span>Deliverables</span>
       </div>
 
       {/* Service rows */}
       <div className="flex flex-col gap-12 w-full">
-        {SERVICES.map(({ num, name, img, crop }) => (
-          <div key={num} className="flex flex-col gap-[9px] w-full">
+        {services.map(({ _id, name, description, image, cropVertical }, index) => (
+          <div key={_id} className="flex flex-col gap-[9px] w-full">
 
             {/* Number + divider */}
             <p
               className="text-white text-[14px] leading-[1.1] uppercase"
               style={{ fontFamily: MONO }}
             >
-              {num}
+              [ {index + 1} ]
             </p>
             <div className="w-full border-t border-white" />
 
@@ -77,26 +83,28 @@ export default function ServicesSection() {
                   className="text-white text-[14px] leading-[1.3] w-full md:w-[393px]"
                   style={{ fontFamily: INTER, letterSpacing: "-0.04em" }}
                 >
-                  {DESCRIPTION}
+                  {description}
                 </p>
 
                 {/* Thumbnail */}
-                <div className="relative shrink-0 size-[151px] overflow-hidden">
-                  {crop ? (
-                    <img
-                      alt=""
-                      className="absolute left-0 max-w-none w-full pointer-events-none"
-                      style={{ height: "149.93%", top: "-42.25%" }}
-                      src={img}
-                    />
-                  ) : (
-                    <img
-                      alt=""
-                      className="absolute inset-0 size-full object-cover pointer-events-none"
-                      src={img}
-                    />
-                  )}
-                </div>
+                {image && (
+                  <div className="relative shrink-0 size-[151px] overflow-hidden">
+                    {cropVertical ? (
+                      <img
+                        alt=""
+                        className="absolute left-0 max-w-none w-full pointer-events-none"
+                        style={{ height: "149.93%", top: "-42.25%" }}
+                        src={urlFor(image).width(304).url()}
+                      />
+                    ) : (
+                      <img
+                        alt=""
+                        className="absolute inset-0 size-full object-cover pointer-events-none"
+                        src={urlFor(image).width(304).height(304).url()}
+                      />
+                    )}
+                  </div>
+                )}
               </div>
             </div>
 

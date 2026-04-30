@@ -1,35 +1,25 @@
-import { Fragment } from 'react';
+import { Fragment } from "react";
+import { client } from "@/sanity/client";
+import { urlFor } from "@/sanity/image";
 
 const INTER = "var(--font-inter, sans-serif)";
-
-const IMG_1 = "/images/news-1.png";
-const IMG_2 = "/images/news-2.png";
-const IMG_3 = "/images/news-3.png";
 const ARROW = "/images/news_arrow.svg";
 
-const NEWS = [
-  {
-    img: IMG_1,
-    caption:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    href: "#",
-    desktopOffset: false,
-  },
-  {
-    img: IMG_2,
-    caption:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    href: "#",
-    desktopOffset: true,
-  },
-  {
-    img: IMG_3,
-    caption:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    href: "#",
-    desktopOffset: false,
-  },
-];
+const NEWS_QUERY = `*[_type == "newsArticle"] | order(order asc) {
+  _id,
+  caption,
+  href,
+  image,
+  desktopOffset,
+}`;
+
+type NewsArticle = {
+  _id: string;
+  caption: string;
+  href: string;
+  image: object | null;
+  desktopOffset: boolean;
+};
 
 function ReadMore({ href }: { href: string }) {
   return (
@@ -51,17 +41,19 @@ function ReadMore({ href }: { href: string }) {
 }
 
 function NewsCard({
-  img,
+  image,
   caption,
   href,
   imgHeight,
+  imgWidth,
   className = "",
   desktopOffset = false,
 }: {
-  img: string;
+  image: object | null;
   caption: string;
   href: string;
   imgHeight: number;
+  imgWidth: number;
   className?: string;
   desktopOffset?: boolean;
 }) {
@@ -71,11 +63,13 @@ function NewsCard({
       style={{ paddingTop: desktopOffset ? 120 : 0 }}
     >
       <div className="relative w-full overflow-hidden shrink-0" style={{ height: imgHeight }}>
-        <img
-          alt=""
-          className="absolute inset-0 size-full object-cover pointer-events-none"
-          src={img}
-        />
+        {image && (
+          <img
+            alt=""
+            className="absolute inset-0 size-full object-cover pointer-events-none"
+            src={urlFor(image).width(imgWidth).height(imgHeight).url()}
+          />
+        )}
       </div>
       <p
         className="text-[#1f1f1f] text-[14px] leading-[1.3] w-full"
@@ -88,7 +82,9 @@ function NewsCard({
   );
 }
 
-export default function NewsSection() {
+export default async function NewsSection() {
+  const news: NewsArticle[] = await client.fetch(NEWS_QUERY) ?? [];
+
   return (
     <section id="news" className="bg-[#f3f3f3] overflow-hidden w-full">
 
@@ -100,15 +96,14 @@ export default function NewsSection() {
         >
           Keep up with my<br />latest news<br />&amp; achievements
         </h2>
-
-        {/* Horizontal scroll — all 3 cards at 300px, gap 16px */}
         <div className="overflow-x-auto -mx-4">
           <div className="flex items-start gap-4 pl-4 pr-4">
-            {NEWS.map((item, i) => (
+            {news.map((item) => (
               <NewsCard
-                key={i}
+                key={item._id}
                 {...item}
                 imgHeight={398}
+                imgWidth={300}
                 className="shrink-0 w-[300px]"
               />
             ))}
@@ -118,8 +113,6 @@ export default function NewsSection() {
 
       {/* ── Desktop ─────────────────────────────────────────────────────── */}
       <div className="hidden md:flex items-end gap-24 px-8 py-[120px]">
-
-        {/* Rotated title — 110px wide column, 706px tall to span the card area */}
         <div
           className="shrink-0 flex items-center justify-center"
           style={{ width: 110, height: 706 }}
@@ -134,26 +127,23 @@ export default function NewsSection() {
             </div>
           </div>
         </div>
-
-        {/* Cards — scroll horizontally when not all cards fit */}
         <div className="overflow-x-auto flex-1 min-w-0">
           <div className="flex items-start">
-            {NEWS.map((item, i) => (
-              <Fragment key={i}>
+            {news.map((item, i) => (
+              <Fragment key={item._id}>
                 {i > 0 && (
                   <div className="w-px self-stretch bg-black shrink-0 mx-[31px]" />
                 )}
                 <NewsCard
                   {...item}
                   imgHeight={469}
+                  imgWidth={353}
                   className="shrink-0 w-[353px]"
-                  desktopOffset={item.desktopOffset}
                 />
               </Fragment>
             ))}
           </div>
         </div>
-
       </div>
 
     </section>

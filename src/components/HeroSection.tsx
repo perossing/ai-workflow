@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Fragment } from "react";
 
 // Figma MCP asset — expires in 7 days; replace with a permanent hosted image
 const HERO_IMAGE =
@@ -12,6 +13,65 @@ export default function HeroSection() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
+    <Fragment>
+    {/* ── Mobile nav overlay ───────────────────────────────────────────── */}
+    <div
+      className={`md:hidden fixed inset-0 z-50 bg-black flex flex-col transition-opacity duration-300 ${
+        menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+      }`}
+      style={{ fontFamily: "var(--font-inter)" }}
+      aria-hidden={!menuOpen}
+    >
+      {/* Header row */}
+      <div className="flex items-center justify-between px-4 py-6 shrink-0">
+        <a
+          href="/"
+          className="font-semibold text-base capitalize text-white"
+          style={{ letterSpacing: "-0.04em" }}
+          onClick={() => setMenuOpen(false)}
+        >
+          H.Studio
+        </a>
+        <button
+          onClick={() => setMenuOpen(false)}
+          aria-label="Close menu"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <line x1="4" y1="4" x2="20" y2="20" stroke="white" strokeWidth="2" strokeLinecap="round" />
+            <line x1="20" y1="4" x2="4" y2="20" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Divider */}
+      <div className="border-t border-white/20 mx-4" />
+
+      {/* Nav links */}
+      <nav className="flex flex-col flex-1 px-4 pt-2">
+        {NAV_LINKS.map((link) => (
+          <a
+            key={link}
+            href={`#${link.toLowerCase()}`}
+            onClick={() => setMenuOpen(false)}
+            className="flex items-center border-b border-white/20 py-5 text-white font-light capitalize"
+            style={{ fontSize: 40, letterSpacing: "-0.04em", lineHeight: 1 }}
+          >
+            {link}
+          </a>
+        ))}
+      </nav>
+
+      {/* CTA */}
+      <div className="px-4 pb-10 shrink-0">
+        <button
+          className="flex items-center justify-center w-full px-4 py-4 bg-white text-black rounded-full text-sm font-medium"
+          style={{ letterSpacing: "-0.035em" }}
+        >
+          Let&apos;s talk
+        </button>
+      </div>
+    </div>
+
     <section
       className="relative flex flex-col h-screen overflow-hidden
         px-4 md:px-8
@@ -123,14 +183,11 @@ export default function HeroSection() {
                above 725px the <br> is hidden and word-spacing adds the
                visual gap matching the Figma spacing. */}
           <h1
-            className="text-white text-center mix-blend-overlay font-medium capitalize w-full
+            className="hero-name text-white text-center mix-blend-overlay font-medium capitalize w-full
               leading-[0.85] min-[726px]:leading-[1.1]
               min-[726px]:whitespace-nowrap
-              min-[726px]:[word-spacing:0.5em]"
-            style={{
-              fontSize: "clamp(51px, 13.75vw, 9999px)",
-              letterSpacing: "-0.07em",
-            }}
+              min-[726px]:[word-spacing:0em]"
+            style={{ letterSpacing: "-0.07em" }}
           >
             Harvey{" "}
             <br className="min-[725px]:hidden" />
@@ -172,5 +229,6 @@ export default function HeroSection() {
         </div>
       </div>
     </section>
+    </Fragment>
   );
 }

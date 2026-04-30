@@ -21,12 +21,12 @@ body {
   user-select: none;
 }
 
-/* Desktop: render the image at near-native size so the subject is larger;
-   edges overflow and are clipped by the parent's overflow:hidden. */
+/* Desktop: wide cinematic crop — increase width relative to height so the
+   subject fills the frame horizontally as in the reference design. */
 @media (min-width: 1000px) {
   .hero-bg {
-    width: max(2560px, 176vw);
-    height: max(1500px, 160vh);
+    width: max(2800px, 190vw);
+    height: max(1300px, 135vh);
     inset: auto;
     top: 50%;
     left: 50%;
@@ -36,24 +36,28 @@ body {
 }
 
 /* ── Frosted-glass overlay ─────────────────────────────────────────────── */
+/* Uses a background gradient for the fade (more reliable than mask-image +
+   backdrop-filter across browsers) combined with a strong blur. */
 .blur-overlay {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 349px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  background-color: rgba(217, 217, 217, 0.01);
+  height: 450px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: linear-gradient(to bottom, transparent 0%, rgba(220, 220, 220, 0.75) 100%);
   pointer-events: none;
-  /* Fade in from the top edge for an even blend */
-  mask-image: linear-gradient(to bottom, transparent 0%, black 40%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 40%);
 }
 
-/* Shorter screens: cap blur area at 30vh so it doesn't dominate the frame */
-@media (max-height: 900px) {
-  .blur-overlay {
-    height: 30vh;
+/* ── Hero name — responsive font size ─────────────────────────────────── */
+/* Mobile (<726px): two-line display, each word fills most of the screen width */
+.hero-name {
+  font-size: 20vw;
+}
+
+@media (min-width: 726px) {
+  .hero-name {
+    font-size: clamp(51px, 13.75vw, 9999px);
   }
 }

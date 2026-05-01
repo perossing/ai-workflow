@@ -1,4 +1,4 @@
-import { client } from "@/sanity/client";
+import { sanityFetch } from "@/sanity/live";
 import { urlFor } from "@/sanity/image";
 
 const MONO = "var(--font-geist-mono, monospace)";
@@ -157,7 +157,8 @@ function CtaPanel() {
 }
 
 export default async function ProjectsSection() {
-  const projects: Project[] = await client.fetch(PROJECTS_QUERY) ?? [];
+  const { data: projectsData } = await sanityFetch({ query: PROJECTS_QUERY });
+  const projects: Project[] = projectsData ?? [];
 
   return (
     <section

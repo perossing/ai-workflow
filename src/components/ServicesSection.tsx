@@ -1,4 +1,4 @@
-import { client } from "@/sanity/client";
+import { sanityFetch } from "@/sanity/live";
 import { urlFor } from "@/sanity/image";
 
 const MONO = "var(--font-geist-mono, monospace)";
@@ -21,7 +21,8 @@ type Service = {
 };
 
 export default async function ServicesSection() {
-  const services: Service[] = await client.fetch(SERVICES_QUERY) ?? [];
+  const { data: servicesData } = await sanityFetch({ query: SERVICES_QUERY });
+  const services: Service[] = servicesData ?? [];
 
   return (
     <section

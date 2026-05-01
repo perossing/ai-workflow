@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { client } from "@/sanity/client";
+import { sanityFetch } from "@/sanity/live";
 import { urlFor } from "@/sanity/image";
 
 const INTER = "var(--font-inter, sans-serif)";
@@ -83,7 +83,8 @@ function NewsCard({
 }
 
 export default async function NewsSection() {
-  const news: NewsArticle[] = await client.fetch(NEWS_QUERY) ?? [];
+  const { data: newsData } = await sanityFetch({ query: NEWS_QUERY });
+  const news: NewsArticle[] = newsData ?? [];
 
   return (
     <section id="news" className="bg-[#f3f3f3] overflow-hidden w-full">

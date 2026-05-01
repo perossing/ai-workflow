@@ -1,3 +1,11 @@
+"use client";
+
+import { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const MONO = "var(--font-geist-mono, monospace)";
 const INTER = "var(--font-inter, sans-serif)";
 const PLAYFAIR = "var(--font-playfair, serif)";
@@ -12,8 +20,45 @@ const titleStyle: React.CSSProperties = {
 };
 
 export default function InfoSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const line1Ref = useRef<HTMLDivElement>(null);
+  const line2Ref = useRef<HTMLDivElement>(null);
+  const line3Ref = useRef<HTMLDivElement>(null);
+  const line4Ref = useRef<HTMLDivElement>(null);
+  const line5Ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Lines at 0% indent start from the left; lines at ~42% indent start from the right.
+      // All converge to x:0 (their natural layout position) as the section scrolls into view.
+      const lines: [React.RefObject<HTMLDivElement | null>, string][] = [
+        [line1Ref, "-6vw"],  // left-aligned
+        [line2Ref, "-4vw"],  // 14.9% indent — still left of centre
+        [line3Ref, "5vw"],   // 42.4% indent — right of centre
+        [line4Ref, "-6vw"],  // left-aligned
+        [line5Ref, "5vw"],   // 42.1% indent — right of centre
+      ];
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          end: "center 55%",
+          scrub: 1,
+        },
+      });
+
+      lines.forEach(([ref, fromX]) => {
+        tl.fromTo(ref.current, { x: fromX }, { x: 0, ease: "none" }, 0);
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       className="bg-[#fafafa] flex flex-col items-center justify-center overflow-hidden w-full
         px-4 py-16
         md:px-8 md:py-[120px]"
@@ -34,12 +79,9 @@ export default function InfoSection() {
         {/* Staggered text lines */}
         <div className="flex flex-col items-start w-full">
 
-          {/* Line 1: "A creative director   /" + 001 label */}
-          <div className="flex items-start gap-3 w-full">
-            <span
-              className="shrink-0 whitespace-nowrap md:whitespace-pre"
-              style={titleStyle}
-            >
+          {/* Line 1: left-aligned — animates from the left */}
+          <div ref={line1Ref} className="flex items-start gap-3 w-full">
+            <span className="shrink-0 whitespace-nowrap md:whitespace-pre" style={titleStyle}>
               A creative director&nbsp;&nbsp;/
             </span>
             <span
@@ -50,15 +92,15 @@ export default function InfoSection() {
             </span>
           </div>
 
-          {/* Line 2: "Photographer" — indented on desktop */}
-          <div className="w-full pl-0 md:pl-[14.9%]">
+          {/* Line 2: 14.9% indent — animates from the left */}
+          <div ref={line2Ref} className="w-full pl-0 md:pl-[14.9%]">
             <span className="whitespace-nowrap" style={titleStyle}>
               Photographer
             </span>
           </div>
 
-          {/* Line 3: "Born & raised" — further indented on desktop */}
-          <div className="w-full pl-0 md:pl-[42.4%]">
+          {/* Line 3: 42.4% indent — animates from the right */}
+          <div ref={line3Ref} className="w-full pl-0 md:pl-[42.4%]">
             <span className="whitespace-nowrap" style={titleStyle}>
               Born{" "}
               <i style={{ fontFamily: PLAYFAIR, fontStyle: "italic", fontWeight: 400 }}>
@@ -68,15 +110,15 @@ export default function InfoSection() {
             </span>
           </div>
 
-          {/* Line 4: "on the south side" — no indent */}
-          <div className="w-full">
+          {/* Line 4: left-aligned — animates from the left */}
+          <div ref={line4Ref} className="w-full">
             <span className="whitespace-nowrap" style={titleStyle}>
               on the south side
             </span>
           </div>
 
-          {/* Line 5: "of chicago." — indented + [ creative freelancer ] label */}
-          <div className="relative w-full pl-0 md:pl-[42.1%]">
+          {/* Line 5: 42.1% indent — animates from the right */}
+          <div ref={line5Ref} className="relative w-full pl-0 md:pl-[42.1%]">
             <span className="whitespace-nowrap" style={titleStyle}>
               of chicago.
             </span>
